@@ -1,0 +1,158 @@
+from tkinter import *
+
+class employee():
+    def __init__(self,info):
+        self.emp_id=StringVar()
+        self.emp_name=StringVar()
+        self.emp_sal=StringVar()
+        self.emp_da=StringVar()
+        self.emp_hra=StringVar()
+        self.emp_ta=StringVar()
+        self.emp_gp=StringVar()
+        self.emp_pf=StringVar()
+        self.emp_tds=StringVar()
+        self.emp_np=StringVar()
+        self.emp_Hours=StringVar()
+        self.GP=StringVar()
+        self.NP=StringVar()
+        self.TDS=StringVar()
+                
+
+        self.info=info
+        info.title("Payslip Generation")
+        info.geometry('1350x650+0+0')
+        info.configure(background="snow")
+       
+        top1=Frame(info,width=1350,height=50,bd=8,bg="snow")        #Frame 1
+        top1.pack(side=TOP,pady=(0,20))
+        self.lbl=Label(top1,font=('Times New Roman',45,'bold'),text="Employee Payslip Generation",fg="black").pack()
+
+        
+        self.canvas = Canvas(info, borderwidth=0, background="slate blue")    #Canvas 1
+        self.top2 = Frame(self.canvas,bd=16,bg="azure")  #Frame 2
+        self.top2.pack(side=TOP)
+        vsb = Scrollbar(info, orient="vertical", command=self.canvas.yview)   #Code for Scrollbar
+        self.canvas.configure(yscrollcommand=vsb.set)
+
+        self.txtpayslip=Text(self.canvas,height=37,width=44,bd=16,font=('arial',13,'bold'),fg="black",bg="yellow")
+        self.txtpayslip.pack(side=TOP)        
+
+
+        vsb.pack(side="right", fill="y")
+        self.canvas.pack(side="left", fill="both", expand=True)
+        self.canvas.create_window((100,270), window=self.top2, anchor="nw")
+        self.canvas.create_window((950,270), window=self.txtpayslip, anchor="nw")
+        
+        self.top2.bind("<Configure>", lambda event, canvas=self.canvas: self.onFrameConfigure(canvas))
+
+        self.populate(self.top2)
+
+    def onFrameConfigure(self,canvas):
+        canvas.configure(scrollregion=canvas.bbox("all"))
+
+   
+# --------------------------------------- labels ------------------------------------------
+       
+    def populate(self,top2):
+       # self.header=Label(self.top2,text="         Enter Details      ",font=('arial',16,'bold'),fg="black").grid(row=0,column=0,pady=(0,10))
+        self.lblName=Label(self.top2,text="       Employee Name      ",font=('arial',16,'bold'),bd=20,fg="black",bg="light grey").grid(row=0,column=0,pady=(0,10))
+        self.lblID=Label(self.top2,text="          Employee ID         ",font=('arial',16,'bold'),bd=20,fg="black",bg="light grey").grid(row=1,column=0,pady=(0,10))
+        self.lblSAL=Label(self.top2,text="      Employee Salary       ",font=('arial',16,'bold'),bd=20,anchor='w',fg="black",bg="light grey").grid(row=2,column=0,pady=(0,10))
+        self.lblDA=Label(self.top2,text="    Dearness Allowance   ",font=('arial',16,'bold'),bd=20,anchor='w',fg="black",bg="light grey").grid(row=3,column=0,pady=(0,10))
+        self.lblTA=Label(self.top2,text="      Travel Allowance      ",font=('arial',16,'bold'),bd=20,anchor='w',fg="black",bg="light grey").grid(row=4,column=0,pady=(0,10))
+        self.lblHRA=Label(self.top2,text="House Rental Allowance",font=('arial',16,'bold'),bd=20,anchor='w',fg="black",bg="light grey").grid(row=5,column=0,pady=(0,10))
+        self.lblPF=Label(self.top2,text="        Provident Fund       ",font=('arial',16,'bold'),bd=20,anchor='w',fg="black",bg="light grey").grid(row=6,column=0,pady=(0,10))
+        self.btn=Button(self.top2,command=lambda :self.payslip(self.canvas),text="Generate Payslip",font=('arial',16,'bold'),width=14,fg="red",bg="powder blue").grid(row=10,column=0,pady=(40,0))
+        self.btn=Button(self.top2,command=lambda :self.update(self.canvas),text="add new",font=('arial',16,'bold'),width=14,fg="red",bg="powder blue").grid(row=10,column=1,pady=(40,0),padx=(170,0))
+        self.btn=Button(self.top2,command=lambda :self.reset(self.canvas),text="reset",font=('arial',16,'bold'),width=14,fg="red",bg="powder blue").grid(row=11,column=1,pady=(40,0),padx=(170,0))
+
+
+
+#--------------------------------------- Entry Labels ------------------------------------------
+        
+        self.Ename=Entry(top2,textvariable=self.emp_name,font=('arial',16,'bold'),bd=16,width=22,justify='left')
+        self.Ename.grid(row=0,column=1,padx=(200,0),pady=(0,10))
+        self.EID=Entry(top2,textvariable=self.emp_id,font=('arial',16,'bold'),bd=16,width=22,justify='left')
+        self.EID.grid(row=1,column=1,padx=(200,0),pady=(0,10))
+        self.ESal=Entry(top2,textvariable=self.emp_sal,font=('arial',16,'bold'),bd=16,width=22,justify='left')
+        self.ESal.grid(row=2,column=1,padx=(200,0),pady=(0,10))
+        self.EDa=Entry(top2,textvariable=self.emp_da,font=('arial',16,'bold'),bd=16,width=22,justify='left')
+        self.EDa.grid(row=3,column=1,padx=(200,0),pady=(0,10))
+        self.ETa=Entry(top2,textvariable=self.emp_ta,font=('arial',16,'bold'),bd=16,width=22,justify='left')
+        self.ETa.grid(row=4,column=1,padx=(200,0),pady=(0,10))      
+        self.EHra=Entry(top2,textvariable=self.emp_hra,font=('arial',16,'bold'),bd=16,width=22,justify='left')
+        self.EHra.grid(row=5,column=1,padx=(200,0),pady=(0,10))
+        self.EPf=Entry(top2,textvariable=self.emp_pf,font=('arial',16,'bold'),bd=16,width=22,justify='left')
+        self.EPf.grid(row=6,column=1,padx=(200,0),pady=(0,10))
+        
+# --------------------------------------- page1 ------------------------------------------
+    def payslip(self,top2):
+        salary=float(self.emp_sal.get())
+        DA=float(self.emp_da.get())
+        HRA=float(self.emp_hra.get())
+        TA=float(self.emp_ta.get())
+        PF=float(self.emp_pf.get())
+        GP=float(DA+salary+TA+HRA)
+        self.emp_gp.set(GP)
+
+        TDS=10*(GP)/100
+        self.emp_tds.set(TDS)
+
+        NP= GP-(PF + TDS)
+        self.emp_np.set(NP)
+
+        self.txtpayslip.insert(END,"\t\tPay Slip\n\n")
+        self.txtpayslip.insert(END,"Name:                                \t\t"+self.emp_name.get()+"\n\n")
+        self.txtpayslip.insert(END,"Employee ID:                     \t\t"+self.emp_id.get()+"\n\n")
+        self.txtpayslip.insert(END,"Salary:                               \t\t"+self.emp_sal.get()+"\n\n")
+        self.txtpayslip.insert(END,"Dearness Allowance:         \t\t"+self.emp_da.get()+"\n\n")
+        self.txtpayslip.insert(END,"Travel Allowance:              \t\t"+self.emp_ta.get()+"\n\n")
+        self.txtpayslip.insert(END,"House Rental Allowance:   \t\t"+self.emp_hra.get()+"\n\n")
+        self.txtpayslip.insert(END,"Provident Fund:                \t\t"+self.emp_pf.get()+"\n\n")
+        self.txtpayslip.insert(END,"Gross Pay:                        \t\t"+self.emp_gp.get()+"\n\n")
+        self.txtpayslip.insert(END,"TDS:                                  \t\t"+self.emp_tds.get()+"\n\n")
+        self.txtpayslip.insert(END,"Net Payable:                      \t\t"+self.emp_np.get()+"\n\n")
+        self.txtpayslip.insert(END,"------------------------------------------------------------\t\t""\n\n")
+
+
+    def update(self,canvas):
+        self.emp_id.set("")
+        self.emp_name.set("")
+        self.emp_sal.set("")
+        self.emp_da.set("")
+        self.emp_hra.set("")
+        self.emp_ta.set("")
+        self.emp_gp.set("")
+        self.emp_pf.set("")
+        self.emp_tds.set("")
+        self.emp_np.set("")
+        self.emp_Hours.set("")
+        self.GP.set("")
+        self.NP.set("")
+        self.TDS.set("")
+
+    def reset(self,canvas):
+        self.emp_id.set("")
+        self.emp_name.set("")
+        self.emp_sal.set("")
+        self.emp_da.set("")
+        self.emp_hra.set("")
+        self.emp_ta.set("")
+        self.emp_gp.set("")
+        self.emp_pf.set("")
+        self.emp_tds.set("")
+        self.emp_np.set("")
+        self.emp_Hours.set("")
+        self.GP.set("")
+        self.NP.set("")
+        self.TDS.set("")
+        self.txtpayslip.delete("1.0",END)
+        
+        
+        
+
+parent=Tk()
+e=employee(parent)
+parent.mainloop()
+
+    
