@@ -21,20 +21,20 @@ class employee():
         self.info=info
         info.title("Payslip Generation")
         info.geometry('1350x650+0+0')
-        info.configure(background="snow")
+        info.configure(background="slate blue")
        
-        top1=Frame(info,width=1350,height=50,bd=8,bg="snow")        #Frame 1
+        top1=Frame(info,width=1350,height=50,bd=8,bg="slate blue")        #Frame 1
         top1.pack(side=TOP,pady=(0,20))
-        self.lbl=Label(top1,font=('Times New Roman',45,'bold'),text="Employee Payslip Generation",fg="black").pack()
+        self.lbl=Label(top1,font=('Times New Roman',45,'bold'),text="Employee Payslip Generation",fg="black",bg="slate blue").pack()
 
         
         self.canvas = Canvas(info, borderwidth=0, background="slate blue")    #Canvas 1
-        self.top2 = Frame(self.canvas,bd=16,bg="azure")  #Frame 2
+        self.top2 = Frame(self.canvas,bd=16,bg="white")  #Frame 2
         self.top2.pack(side=TOP)
         vsb = Scrollbar(info, orient="vertical", command=self.canvas.yview)   #Code for Scrollbar
         self.canvas.configure(yscrollcommand=vsb.set)
 
-        self.txtpayslip=Text(self.canvas,height=37,width=44,bd=16,font=('arial',13,'bold'),fg="black",bg="yellow")
+        self.txtpayslip=Text(self.canvas,height=34,width=44,bd=20,font=('arial',13,'bold'),fg="black",bg="yellow")
         self.txtpayslip.pack(side=TOP)        
 
 
@@ -54,7 +54,7 @@ class employee():
 # --------------------------------------- labels ------------------------------------------
        
     def populate(self,top2):
-       # self.header=Label(self.top2,text="         Enter Details      ",font=('arial',16,'bold'),fg="black").grid(row=0,column=0,pady=(0,10))
+       #  self.header=Label(self.top2,text="         Enter Details      ",font=('arial',16,'bold'),fg="black").grid(row=0,column=0,pady=(0,10))
         self.lblName=Label(self.top2,text="       Employee Name      ",font=('arial',16,'bold'),bd=20,fg="black",bg="light grey").grid(row=0,column=0,pady=(0,10))
         self.lblID=Label(self.top2,text="          Employee ID         ",font=('arial',16,'bold'),bd=20,fg="black",bg="light grey").grid(row=1,column=0,pady=(0,10))
         self.lblSAL=Label(self.top2,text="      Employee Salary       ",font=('arial',16,'bold'),bd=20,anchor='w',fg="black",bg="light grey").grid(row=2,column=0,pady=(0,10))
@@ -62,9 +62,9 @@ class employee():
         self.lblTA=Label(self.top2,text="      Travel Allowance      ",font=('arial',16,'bold'),bd=20,anchor='w',fg="black",bg="light grey").grid(row=4,column=0,pady=(0,10))
         self.lblHRA=Label(self.top2,text="House Rental Allowance",font=('arial',16,'bold'),bd=20,anchor='w',fg="black",bg="light grey").grid(row=5,column=0,pady=(0,10))
         self.lblPF=Label(self.top2,text="        Provident Fund       ",font=('arial',16,'bold'),bd=20,anchor='w',fg="black",bg="light grey").grid(row=6,column=0,pady=(0,10))
-        self.btn=Button(self.top2,command=lambda :self.payslip(self.canvas),text="Generate Payslip",font=('arial',16,'bold'),width=14,fg="red",bg="powder blue").grid(row=10,column=0,pady=(40,0))
-        self.btn=Button(self.top2,command=lambda :self.update(self.canvas),text="add new",font=('arial',16,'bold'),width=14,fg="red",bg="powder blue").grid(row=10,column=1,pady=(40,0),padx=(170,0))
-        self.btn=Button(self.top2,command=lambda :self.reset(self.canvas),text="reset",font=('arial',16,'bold'),width=14,fg="red",bg="powder blue").grid(row=11,column=1,pady=(40,0),padx=(170,0))
+        self.btn=Button(self.top2,command=lambda :self.payslip(self.canvas),text="Generate Payslip",font=('arial',16,'bold'),width=14,fg="black",bg="powder blue").grid(row=10,column=1,padx=(200,0))
+        self.btn=Button(self.top2,command=lambda :self.update(self.canvas),text="reset",font=('arial',16,'bold'),width=14,fg="red",bg="black").grid(row=11,column=0,pady=(40,0))
+        self.btn=Button(self.top2,command=lambda :self.reset(self.canvas),text="add new",font=('arial',16,'bold'),width=14,fg="black",bg="powder blue").grid(row=11,column=1,pady=(40,0),padx=(200,0))
 
 
 
@@ -151,8 +151,6 @@ class employee():
         
         
 
-parent=Tk()
-e=employee(parent)
-parent.mainloop()
-
-    
+info=Tk()
+e=employee(info)
+info.mainloop()
